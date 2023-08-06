@@ -4,7 +4,6 @@ local gfx <const> = pd.graphics
 class('Spider').extends(gfx.sprite)
 
 function Spider:init(x,y, moveSpeed)
-	self:moveTo(x,y)
 	self:add()
 	self.fRate = 5
 	
@@ -17,6 +16,12 @@ function Spider:init(x,y, moveSpeed)
 	
 	self:setCollideRect(0, 0, 32, 32)
 	
+	
+	-- For some reason added the move w/ collisions fixes an issue where the sprites jump around weirdly if they sqawn on top of each other.
+	-- Using just the move to cause the sprites to not  spawn at all.
+	self:moveTo(x,y)
+	local actualX, actualY, collisions, length = self:moveWithCollisions(self.x , self.y)
+	
 	self.moveSpeed = moveSpeed
 
 end
@@ -27,14 +32,11 @@ function Spider:update()
 	if self.ct == self.fRate then
 		self.ct = 1
 		
-		self.currentFrame = self.currentFrame%4 + 1
+		self.currentFrame = self.currentFrame%3 + 1
 	    self:setImage(gfx.image.new(self.imgFrames[self.currentFrame]))
 		
 	end
 	self.ct = self.ct+1
-	
-		
-		
 	
 	if length > 0 then
 		for index, collisions in pairs(collisions) do
