@@ -25,6 +25,8 @@ end
 
 function Player:update()
 	local w, h = self:getSize()
+	local crankChange = pd.getCrankChange()
+	
 	if pd.buttonIsPressed(pd.kButtonUp) then
 		if self.y > 0 + 15 then
 		    self:moveBy(0,-self.speed)
@@ -34,6 +36,17 @@ function Player:update()
 		    self:moveBy(0,self.speed)
 		end
 	end
+	
+	if crankChange > 0 then
+		if self.y > 0 +15 then
+			self:moveBy(0,-crankChange)
+		end
+	elseif crankChange < 0 then
+		if self.y < 240-15 then
+			self:moveBy(0, -crankChange)
+		end
+	end
+		
 	
 	if pd.buttonJustPressed(pd.kButtonA) then
 		Bullet(self.x + w, self.y, 5)
