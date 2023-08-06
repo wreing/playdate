@@ -37,7 +37,6 @@ function Player:update()
 		end
 	end
 	
-	print(crankChange)
 	if crankChange > 0 then
 		if self.y > 0 +15 then
 			self:moveBy(0,-crankChange)
