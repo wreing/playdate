@@ -23,7 +23,7 @@ end
 
 function spawnEnemy()
 	local spawnPosition = math.random(10,230)
-	Spider(420, spawnPosition, 1)
+	Spider(430, spawnPosition, 1)
 	print("Spider Spawned At :" , spawnPosition)
 end
 
