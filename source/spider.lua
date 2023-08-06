@@ -16,18 +16,11 @@ function Spider:init(x,y, moveSpeed)
 	
 	self:setCollideRect(0, 0, 32, 32)
 	
-	-- Dont spawn inside other spiders
+	
+	-- For some reason added the move w/ collisions fixes an issue where the sprites jump around weirdly if they sqawn on top of each other.
+	-- Using just the move to cause the sprites to not  spawn at all.
 	self:moveTo(x,y)
 	local actualX, actualY, collisions, length = self:moveWithCollisions(self.x , self.y)
-	
---[[ 	if length > 0 then
-		for index, collisions in pairs(collisions) do
-			local collidedObject = collisions['other'] 
-			if collidedObject:isa("Spider") then
-				self:remove()
-			end
-		end
-	end --]]
 	
 	self.moveSpeed = moveSpeed
 

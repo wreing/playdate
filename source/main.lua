@@ -12,8 +12,6 @@ local pd <const> = playdate
 local gfx <const> = pd.graphics
 
 -- todo
--- 2. fix spawer issue where they spawn and un spawn
---    They are swawing inside eachotehers colide rects
 -- 3. fix issue where bullets hitting enemy's sometimes try to remove the enemy (or bullet ) twice
 -- 4. add a new enemy type
 -- 5. Abstract new enemy type to parent class
