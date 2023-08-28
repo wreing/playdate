@@ -23,7 +23,7 @@ function Bullet:update()
     if length > 0 then
 		for index, collisions in pairs(collisions) do
 			local collidedObject = collisions['other'] 
-			if collidedObject:isa(Spider) then
+			if collidedObject:isa(Spider) or collidedObject:isa(Slug) then
 				collidedObject:remove()	
 				incrementScore()
 				setShakeAmount(5)

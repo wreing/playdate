@@ -1,4 +1,5 @@
 import "spider"
+import "slug"
 
 local pd <const> = playdate
 local gfx <const> = pd.graphics
@@ -22,8 +23,15 @@ function createTimer()
 end
 
 function spawnEnemy()
+	--print(gfx.sprite:spriteCount() ) 
 	local spawnPosition = math.random(10,230)
-	Spider(430, spawnPosition, 1)
+	-- What to spawn
+	local enemyType = math.random(1,2)
+	if enemyType == 1 then
+	    Spider(430, spawnPosition, 1, 0)
+	elseif enemyType == 2 then
+	    Slug(430, spawnPosition, 1, -1)
+	end
 end
 
 function stopSpawner()
