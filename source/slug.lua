@@ -1,14 +1,14 @@
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 
-class('Spider').extends(gfx.sprite)
+class('Slug').extends(gfx.sprite)
 
-function Spider:init(x,y, moveSpeed)
+function Slug:init(x,y, moveSpeed, deltaY)
 	self:add()
 	self.fRate = 5
 	self.deltaY = deltaY
 	
-	self.imgFrames = { "images/spider_1", "images/spider_2", "images/spider_3", "images/spider_4" }
+	self.imgFrames = { "images/slug_1", "images/slug_2", "images/slug_3", "images/slug_4" }
 	
 	self.currentFrame=1
 	self.ct = 1
@@ -24,16 +24,35 @@ function Spider:init(x,y, moveSpeed)
 	local actualX, actualY, collisions, length = self:moveWithCollisions(self.x , self.y)
 	
 	self.moveSpeed = moveSpeed
-
+	self.skipframe = 0  
 end
 
-function Spider:update()
-	local actualX, actualY, collisions, length = self:moveWithCollisions(self.x - self.moveSpeed, self.y)
+function Slug:update()
+	if self.y < 0 or self.y > 220 then
+		self.deltaY = -1 * self.deltaY
+	end 
+	
+    -- Skip movment for one frame	
+	local curX = self.x - self.moveSpeed
+	local curY = self.y + self.deltaY
+	
+	if self.skipframe > 0  then
+		print("-----Freeze-------")
+	    print(self.skipframe)
+	    curX = self.x
+	    curY = self.y
+		self.skipframe = self.skipframe -1 
+	end
+	
+	
+	
+    local actualX, actualY, collisions, length = self:moveWithCollisions(curX, curY)
+	
 	
 	if self.ct == self.fRate then
 		self.ct = 1
 		
-		self.currentFrame = self.currentFrame%3 + 1
+		self.currentFrame = self.currentFrame%2 + 1
 	    self:setImage(gfx.image.new(self.imgFrames[self.currentFrame]))
 		
 	end
@@ -45,6 +64,13 @@ function Spider:update()
 			if collidedObject:isa(Player) then
 				injured()
 				self:remove()
+			elseif collidedObject:isa(Spider) or collidedObject:isa(Slug) then
+				print("hit slug or spider")
+				
+			    if collidedObject.x > self.x  then
+					print("Set Freeze")
+					self.skipframe = 6
+				end
 			end
 		end
 	end
