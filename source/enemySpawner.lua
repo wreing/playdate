@@ -43,7 +43,7 @@ end
 function clearEnemies()
 	local allSprites = gfx.sprite.getAllSprites()
 	for index, sprite in ipairs(allSprites) do
-		if sprite:isa(Spider) then
+		if sprite:isa(Spider) or sprite:isa(Slug) then
 			sprite:remove()
 		end
 	end

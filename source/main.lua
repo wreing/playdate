@@ -3,20 +3,22 @@ import "CoreLibs/graphics"
 import "CoreLibs/sprites"
 import "CoreLibs/timer"
 
-import "player"
+import "animatedSprite"
 import "enemySpawner"
 import "scoreDisplay"
 import "screenShake"
 
+import "player"
+
 local pd <const> = playdate
 local gfx <const> = pd.graphics
+
 
 -- todo
 -- 3. fix issue where bullets hitting enemy's sometimes try to remove the enemy (or bullet ) twice
 -- 4. add a new enemy type
 -- 5. Abstract new enemy type to parent class
 -- 6. Switch player movment to crank
-
 
 local screenShakeSprite = ScreenShake()
 
