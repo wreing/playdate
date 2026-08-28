@@ -1,0 +1,9 @@
+name=Simple Invaders
+author=reing.com
+description=A simple space invaders clone
+bundleID=com.reing.simpleinvaders
+version=1.1
+buildNumber=200
+imagePath=SystemAssets/
+pdxversion=20000
+buildtime=747069074

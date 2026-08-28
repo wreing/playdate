@@ -1,21 +1,24 @@
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 
-class('Spider').extends(gfx.sprite)
+class('Spider').extends(AnimatedSprite)
 
-function Spider:init(x,y, moveSpeed)
-	self:add()
-	self.fRate = 5
+function Spider:init(x,y, moveSpeed, deltaY)
 	self.deltaY = deltaY
 	
-	self.imgFrames = { "images/spider_1", "images/spider_2", "images/spider_3", "images/spider_4" }
-	
-	self.currentFrame=1
-	self.ct = 1
-	--self:setImage(self.imgFrames[currentFrame])
-	self:setImage(gfx.image.new(self.imgFrames[self.currentFrame]))
+	local spiderImageTable = gfx.imagetable.new("images/astro-spiderbot-table-32-32")
+    Player.super.init(self, spiderImageTable)
 	
 	self:setCollideRect(0, 0, 32, 32)
+
+	self:addState("idle", 1, 2, {tickStep=10})
+    self:addState("walk", 3, 6, {tickStep = 4} )
+    self:addState("recoil", 7, 8)
+    self:addState("shoot", 9, 9)
+	
+	self:setDefaultState("walk")
+	self:playAnimation()
+
 	
 	
 	-- For some reason added the move w/ collisions fixes an issue where the sprites jump around weirdly if they sqawn on top of each other.
@@ -24,20 +27,15 @@ function Spider:init(x,y, moveSpeed)
 	local actualX, actualY, collisions, length = self:moveWithCollisions(self.x , self.y)
 	
 	self.moveSpeed = moveSpeed
+	self:add()
 
 end
 
 function Spider:update()
+
+    self:updateAnimation()
+
 	local actualX, actualY, collisions, length = self:moveWithCollisions(self.x - self.moveSpeed, self.y)
-	
-	if self.ct == self.fRate then
-		self.ct = 1
-		
-		self.currentFrame = self.currentFrame%3 + 1
-	    self:setImage(gfx.image.new(self.imgFrames[self.currentFrame]))
-		
-	end
-	self.ct = self.ct+1
 	
 	if length > 0 then
 		for index, collisions in pairs(collisions) do
@@ -56,5 +54,5 @@ function Spider:update()
 end
 
 function Spider:collisionsResponse()
-	retrun "overlap"
+	retrun "bounce"
 end
