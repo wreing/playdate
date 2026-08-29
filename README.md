@@ -6,15 +6,13 @@ A simple Space Invaders-style game built to explore game development on the [Pla
 
 ## About
 
-This project was built as a learning exercise for game development on the Playdate using Lua and the Playdate SDK. It features a player ship, enemy spawning, bullet mechanics, score tracking, and screen shake effects.
+This project was built as a learning exercise for game development on the Playdate using Lua and the Playdate SDK. 
 
-## Features
+A lot of this project was based on squidgods youtube example.  With the addtion of adding crank control for the player.
 
-- Player movement and shooting
-- Enemy spawning system with multiple enemy types (slug, spider)
-- Animated sprites
-- Score display
-- Screen shake on impact
+The sprites are from this set:
+https://rumblecade.itch.io/astro-sprites-1b
+
 
 ## Requirements
 
